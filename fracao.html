@@ -1,0 +1,29 @@
+<canvas width="600" height="400"></canvas>
+<script>
+    var quadro = document.querySelector('canvas');
+    var pincel = quadro.getContext('2d');
+    pincel.fillStyle = 'lightgrey';
+    pincel.fillRect(0, 0, 600, 400);
+    
+    function desenharQuadrado(x, y, tamanho, cor){
+        pincel.fillStyle = cor;
+        pincel.strokeStyle = 'black';
+        pincel.fillRect(x, y, tamanho, tamanho);
+        pincel.strokeRect(x, y, tamanho, tamanho);
+    }
+
+    function desenharFracao(x, y, valor1, valor2, cor){
+        for(var i = 0; i < valor2; i++){
+            if(i < valor1){
+                desenharQuadrado(x + (i * 50), y, 50, cor);
+            }else{
+                desenharQuadrado(x + (i * 50), y, 50, 'white');
+            }
+        }
+    } 
+
+    desenharFracao(0, 0, 3, 5, 'green');
+    desenharFracao(0, 50, 2, 10, 'red');
+    desenharFracao(0, 100, 7, 8, 'blue');
+    
+</script>

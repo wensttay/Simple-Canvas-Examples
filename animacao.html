@@ -1,0 +1,57 @@
+<canvas id="tela" width="600" height="400"></canvas>
+
+<script>
+    var tela = document.querySelector("#tela");
+    var pincel = tela.getContext("2d");
+    var fatorCrescimento = 1;
+    var direcao = 1;
+    var posX = 300;
+    var posY = 200;
+    var raio = 20;
+    var raioMax = 30;
+    var raioMin = 20;
+
+    var esquerda = 37;
+    var cima = 38;
+    var direita = 39;
+    var baixo = 40;
+    var velocidade = 20;
+
+    function desenharCirculo(x, y, raio) {
+        pincel.fillStyle = "blue";
+        pincel.beginPath();
+        pincel.arc(x, y, raio, 0, 2 * Math.PI);
+        pincel.fill();
+    };
+
+    function limpaTela() {
+        pincel.clearRect(0, 0, 600, 400);
+    };
+
+    function atualizaTela(){
+        limpaTela();
+        desenharCirculo(posX, posY, raio);
+        // posX += direcao;        
+        // if(posX >= 600 - raio || posX <= 0 + raio) direcao *= -1;
+        // raio += fatorCrescimento;
+        // if(raio > raioMax || raio < raioMin ) fatorCrescimento *= -1;
+    }
+
+    function quandoApertarUmaTecla(evento){
+        if (evento.keyCode == esquerda && posX > 0 + raio) {
+            posX -= velocidade;
+        }else
+        if (evento.keyCode == direita && posX < 600 - raio) {
+            posX += velocidade;
+        }else
+        if (evento.keyCode == cima && posY > 0 + raio) {
+            posY -= velocidade;
+        }else
+        if (evento.keyCode == baixo && posY < 400 - raio) {
+            posY += velocidade;
+        }
+    }
+
+    document.onkeydown = quandoApertarUmaTecla;
+    setInterval(atualizaTela, 1);
+</script>

@@ -1,0 +1,52 @@
+<canvas width="600" height="400"></canvas>
+<script>
+    var quadro = document.querySelector('canvas');
+    var pincel = quadro.getContext('2d');
+    var raio = 10;
+    var posX = 200;
+    var posY = 200;
+
+    function desenharCirculo(x, y, raio, cor) {
+        pincel.fillStyle = cor;
+        pincel.beginPath();
+        pincel.arc(x, y, raio, 0, 2 * Math.PI);
+        pincel.fill();
+    }
+
+    function desenharMira(x, y) {
+        desenharCirculo(x, y, raio + 20, 'red');
+        desenharCirculo(x, y, raio + 10, 'white');
+        desenharCirculo(x, y, raio, 'red');
+    }
+
+    function geradorDePosicao(max) {
+        return Math.floor(Math.random() * max);
+    }
+
+    function limparTela() {
+        pincel.clearRect(0, 0, 600, 400);
+    }
+
+    function atualizarTela() {
+        limparTela();
+        posX = geradorDePosicao(600);
+        posY = geradorDePosicao(400);
+        desenharMira(posX, posY);
+    }
+
+    setInterval(atualizarTela, 1000);
+
+    function acionarMira(evento) {
+        var x = evento.pageX - quadro.offsetLeft;
+        var y = evento.pageY - quadro.offsetTop;
+
+        if (x > posX - raio
+            && x < posX + raio
+            && y > posY - raio
+            && y < posY + raio) {
+            alert('Acertou mizeravi');
+        }
+    }
+
+    quadro.onclick = acionarMira;
+</script>

@@ -1,0 +1,67 @@
+<canvas width="600" height="400"></canvas>
+<br>
+Escolha uma cor <input type="color">
+
+<script>
+    var quadro = document.querySelector('canvas');
+    var pincel = quadro.getContext('2d');
+    
+    pincel.fillStyle = 'lightgrey';
+    pincel.fillRect(0, 0, 600, 400);
+    
+    // var colors = ['blue', 'red', 'green'];
+    // var colorPos = 0;
+    var inputColor = document.querySelector('input');
+    var raio = 10;
+    var raioMax = 40;
+    var incremento = 5;
+    var desenha = false;
+
+    quadro.onmousemove = function(evento) {
+
+        if (desenha) {
+            var x = evento.pageX - quadro.offsetLeft;
+            var y = evento.pageY - quadro.offsetTop;
+            
+            // pincel.fillStyle = colors[colorPos];
+            pincel.fillStyle = inputColor.value;
+            pincel.beginPath();
+            
+            if(evento.shiftKey && raio < raioMax){
+                raio += incremento;
+            }
+            
+            if(evento.ctrlKey && raio > incremento){
+                raio -= incremento;
+            }
+
+            pincel.arc(x, y, raio, 0, 2 * Math.PI);
+            pincel.fill();
+        }
+        
+        console.log("posição do clique : " + x + ", " + y);
+    }
+
+    // quadro.oncontextmenu = function() {
+
+    //     if (colorPos >= colors.length - 1) {
+    //         colorPos = 0;
+    //     } else {
+    //         colorPos++;
+    //     }
+        
+    //     return false;
+    // }
+
+    quadro.onmousedown = function() {
+
+        desenha = true;
+    }
+
+    quadro.onmouseup = function() {
+
+        desenha = false;
+    }
+
+</script>
+
